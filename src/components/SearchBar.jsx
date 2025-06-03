@@ -20,14 +20,14 @@ const SearchBar = ({ onSearch }) => {
           `https://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=${query}`
         );
         const data = await res.json();
-        setSuggestions(data.slice(0, 5)); // mostra max 5
+        setSuggestions(data.slice(0, 5));
       } catch (err) {
         console.error('Errore nei suggerimenti città:', err);
         setSuggestions([]);
       }
     };
 
-    const timer = setTimeout(fetchSuggestions, 300); // debounce
+    const timer = setTimeout(fetchSuggestions, 300);
     return () => clearTimeout(timer);
   }, [query]);
 
@@ -58,18 +58,18 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="relative w-full max-w-md mb-4" ref={containerRef}>
+    <div className="relative w-full max-w-md" ref={containerRef}>
       <form onSubmit={handleSubmit} className="flex">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Inserisci città..."
-          className="w-full p-2 rounded-l-md text-black"
+          className="w-full p-3 rounded-l-xl text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
         />
         <button
           type="submit"
-          className="bg-orange-400 px-4 py-2 rounded-r-md text-white"
+          className="bg-orange-400 px-5 rounded-r-xl text-white hover:bg-orange-500 transition"
         >
           Cerca
         </button>
@@ -78,16 +78,16 @@ const SearchBar = ({ onSearch }) => {
       <AnimatePresence>
         {suggestions.length > 0 && (
           <motion.ul
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute z-20 bg-white text-black w-full mt-1 rounded-md shadow-lg max-h-60 overflow-y-auto"
+            exit={{ opacity: 0, y: -8 }}
+            className="absolute z-20 bg-white text-black w-full mt-1 rounded-xl shadow-lg max-h-60 overflow-y-auto"
           >
             {suggestions.map((city, index) => (
               <li
                 key={index}
                 onClick={() => handleSelect(city)}
-                className="p-2 cursor-pointer hover:bg-orange-100 transition-all"
+                className="p-3 cursor-pointer hover:bg-orange-100 transition text-sm"
               >
                 {city.name}
                 {city.region ? `, ${city.region}` : ''}, {city.country}
