@@ -4,7 +4,7 @@ const WeeklyForecast = ({ days }) => {
   if (!days || days.length === 0) return null;
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4 mt-6 w-full max-w-6xl px-2">
+    <div className="row mt-4 gx-3 gy-4 justify-content-center px-2">
       {days.map((day, index) => {
         const date = new Date(day.date).toLocaleDateString('it-IT', {
           weekday: 'short',
@@ -20,14 +20,21 @@ const WeeklyForecast = ({ days }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="bg-white/10 backdrop-blur-md p-4 rounded-2xl text-center shadow-xl border border-white/20 text-white hover:scale-[1.03] transition-transform duration-300"
+            className="col-6 col-sm-4 col-md-3 col-lg-2"
           >
-            <p className="font-semibold text-white/90 mb-1">{date}</p>
-            <img src={iconUrl} alt={day.day.condition.text} className="mx-auto w-14 h-14" />
-            <p className="text-sm capitalize mt-1">{day.day.condition.text}</p>
-            <p className="text-sm mt-1 font-medium">
-              {Math.round(day.day.mintemp_c)}° / {Math.round(day.day.maxtemp_c)}°
-            </p>
+            <div className="card text-center shadow-sm h-100 bg-light bg-opacity-75 border-0 rounded-4">
+              <div className="card-body p-3">
+                <p className="card-title fw-semibold mb-2">{date}</p>
+                <img
+                  src={iconUrl}
+                  alt={day.day.condition.text}
+                  className="mx-auto d-block mb-2"
+                  style={{ width: 48, height: 48 }}
+                />
+                <p className="text-muted small text-capitalize">{day.day.condition.text}</p>
+                <p className="fw-bold mb-0">{Math.round(day.day.mintemp_c)}° / {Math.round(day.day.maxtemp_c)}°</p>
+              </div>
+            </div>
           </motion.div>
         );
       })}

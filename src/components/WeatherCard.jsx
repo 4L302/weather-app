@@ -5,30 +5,33 @@ const WeatherCard = ({ weather, location }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className="bg-white bg-opacity-20 p-6 rounded-xl text-white text-center backdrop-blur-md shadow-xl w-full max-w-md"
+      transition={{ duration: 0.4 }}
+      className="card shadow-lg p-4 text-dark bg-light bg-opacity-75 w-100 max-w-md mx-auto"
     >
-      <h2 className="text-2xl font-bold">
-        {location.name}
-        {location.region ? `, ${location.region}` : ''}, {location.country}
-      </h2>
+      <div className="card-body text-center">
+        <h2 className="card-title h4 fw-bold mb-2">
+          {location.name}
+          {location.region ? `, ${location.region}` : ''}, {location.country}
+        </h2>
 
-      <p className="text-xl mt-2">{weather.temp_c}°C</p>
+        <h3 className="display-6 mb-2">{weather.temp_c}°C</h3>
 
-      <img
-        src={`https:${weather.condition.icon}`}
-        alt={weather.condition.text}
-        className="mx-auto w-20 h-20"
-      />
+        <img
+          src={`https:${weather.condition.icon}`}
+          alt={weather.condition.text}
+          className="mx-auto d-block mb-2"
+          style={{ width: 80, height: 80 }}
+        />
 
-      <p className="capitalize">{weather.condition.text}</p>
+        <p className="text-capitalize fw-semibold mb-3">{weather.condition.text}</p>
 
-      <div className="mt-2 text-sm space-y-1">
-        <p>🌡️ Umidità: {weather.humidity}%</p>
-        <p>💨 Vento: {weather.wind_kph} km/h</p>
-        <p>🌅 Alba: {location.localtime.split(' ')[1]}</p>
+        <div className="d-flex justify-content-around flex-wrap gap-2 small">
+          <span>🌡️ Umidità: {weather.humidity}%</span>
+          <span>💨 Vento: {weather.wind_kph} km/h</span>
+          <span>🌅 Alba: {location.localtime.split(' ')[1]}</span>
+        </div>
       </div>
     </motion.div>
   );
